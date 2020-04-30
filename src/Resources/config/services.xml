@@ -4,6 +4,25 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <!-- Put your services here -->
+        <service id="nedac.sylius_highest_order_shipment_tax_rate_plugin.taxation.resolver.tax_rate"
+                 class="Nedac\SyliusHighestOrderShipmentTaxRatePlugin\Taxation\Resolver">
+            <argument key="$logger" type="service" id="logger" />
+        </service>
+
+        <service id="Nedac\SyliusHighestOrderShipmentTaxRatePlugin\Taxation\Resolver\TaxRateResolverInterface"
+                 alias="nedac.sylius_highest_order_shipment_tax_rate_plugin.taxation.resolver.tax_rate" />
+
+        <service id="nedac.sylius_highest_order_shipment_tax_rate_plugin.taxation.applicator.order_shipment_taxes"
+                 class="Nedac\SyliusHighestOrderShipmentTaxRatePlugin\Taxation\Applicator\OrderShipmentTaxesApplicator">
+            <argument key="$calculator" type="service" id="sylius.tax_calculator" />
+            <argument key="$adjustmentFactory" type="service" id="sylius.custom_factory.adjustment" />
+            <argument key="$shipmentMethodBasedTaxRateResolver" type="service" id="sylius.tax_rate_resolver" />
+            <argument key="$highestRatBasedTaxRateResolver"
+                      type="service"
+                      id="nedac.sylius_highest_order_shipment_tax_rate_plugin.taxation.resolver.tax_rate" />
+        </service>
+
+        <service id="sylius.taxation.order_shipment_taxes_applicator"
+                 alias="nedac.sylius_highest_order_shipment_tax_rate_plugin.taxation.applicator.order_shipment_taxes" />
     </services>
 </container>
