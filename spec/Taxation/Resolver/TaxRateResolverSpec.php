@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Nedac\SyliusHighestOrderShipmentTaxRatePlugin\Taxation\Resolver;
 
 use Doctrine\Common\Collections\Collection;
 use Iterator;
+use Nedac\SyliusHighestOrderShipmentTaxRatePlugin\Taxation\Resolver\TaxRateResolver;
 use Nedac\SyliusHighestOrderShipmentTaxRatePlugin\Taxation\Resolver\TaxRateResolverInterface;
 use PhpSpec\ObjectBehavior;
 use Psr\Log\LoggerInterface;
@@ -19,6 +22,7 @@ class TaxRateResolverSpec extends ObjectBehavior
     public function it_is_initializable(LoggerInterface $logger): void
     {
         $this->beConstructedWith($logger);
+        $this->shouldHaveType(TaxRateResolver::class);
         $this->shouldHaveType(TaxRateResolverInterface::class);
     }
 
