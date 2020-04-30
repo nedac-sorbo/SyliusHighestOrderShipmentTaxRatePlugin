@@ -1,0 +1,4 @@
+suites:
+    main:
+        namespace: Nedac\SyliusHighestOrderShipmentTaxRatePlugin
+        psr4_prefix: Nedac\SyliusHighestOrderShipmentTaxRatePlugin
