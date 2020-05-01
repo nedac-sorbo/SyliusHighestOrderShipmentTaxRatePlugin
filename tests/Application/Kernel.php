@@ -10,6 +10,7 @@ use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Loader\ClosureLoader;
@@ -30,6 +31,14 @@ final class Kernel extends BaseKernel
 
     private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
 
+    /** @var CompilerPassInterface[] */
+    private array $compilerPasses = [];
+
+    public function addCompilerPass(CompilerPassInterface $compilerPass): void
+    {
+        $this->compilerPasses[] = $compilerPass;
+    }
+
     public function getCacheDir(): string
     {
         return $this->getProjectDir() . '/var/cache/' . $this->environment;
@@ -48,6 +57,17 @@ final class Kernel extends BaseKernel
                 yield new $class();
             }
         }
+    }
+
+    protected function buildContainer(): ContainerBuilder
+    {
+        $builder = parent::buildContainer();
+
+        foreach ($this->compilerPasses as $compilerPass) {
+            $builder->addCompilerPass($compilerPass);
+        }
+
+        return $builder;
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
