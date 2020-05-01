@@ -5,7 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="nedac.sylius_highest_order_shipment_tax_rate_plugin.taxation.resolver.tax_rate"
-                 class="Nedac\SyliusHighestOrderShipmentTaxRatePlugin\Taxation\Resolver">
+                 class="Nedac\SyliusHighestOrderShipmentTaxRatePlugin\Taxation\Resolver\TaxRateResolver">
             <argument key="$logger" type="service" id="logger" />
         </service>
 
@@ -17,7 +17,7 @@
             <argument key="$calculator" type="service" id="sylius.tax_calculator" />
             <argument key="$adjustmentFactory" type="service" id="sylius.custom_factory.adjustment" />
             <argument key="$shipmentMethodBasedTaxRateResolver" type="service" id="sylius.tax_rate_resolver" />
-            <argument key="$highestRatBasedTaxRateResolver"
+            <argument key="$highestRateBasedTaxRateResolver"
                       type="service"
                       id="nedac.sylius_highest_order_shipment_tax_rate_plugin.taxation.resolver.tax_rate" />
         </service>
