@@ -3,6 +3,17 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults public="true" />
-        <!-- Put your Behat services here -->
+        <service id="nedac.sylius_highest_order_shipment_tax_rate.behat.page.select_shipping"
+                 class="Tests\Nedac\SyliusHighestOrderShipmentTaxRatePlugin\Behat\Page\SelectShippingPage"
+                 parent="sylius.behat.symfony_page"
+                 public="false" />
+
+        <service id="Tests\Nedac\SyliusHighestOrderShipmentTaxRatePlugin\Behat\Page\SelectShippingPageInterface"
+                 alias="nedac.sylius_highest_order_shipment_tax_rate.behat.page.select_shipping" />
+
+        <service id="nedac.sylius_highest_order_shipment_tax_rate.behat.context.shipping"
+                 class="Tests\Nedac\SyliusHighestOrderShipmentTaxRatePlugin\Behat\Context\Shipping">
+            <argument key="$page" type="service" id="nedac.sylius_highest_order_shipment_tax_rate.behat.page.select_shipping" />
+        </service>
     </services>
 </container>
