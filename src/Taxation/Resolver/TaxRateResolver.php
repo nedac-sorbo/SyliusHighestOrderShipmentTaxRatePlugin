@@ -38,21 +38,29 @@ final class TaxRateResolver implements TaxRateResolverInterface
             $variant = $item->getVariant();
             if (null !== $variant) {
                 $taxCategory = $variant->getTaxCategory();
+                if (null !== $taxCategory) {
+                    $rates = $taxCategory->getRates();
+                    if (count($rates) === 0) {
+                        $this->logger->warning(
+                            'TaxRateResolver found a tax category without rates!'
+                        );
+                    }
 
-                $rates = $taxCategory->getRates();
-                if (count($rates) === 0) {
-                    $this->logger->warning(
-                        'TaxRateResolver found a tax category without rates!'
-                    );
-                }
-
-                /** @var TaxRateInterface $rate */
-                foreach ($rates as $rate) {
-                    if ($rate->getZone()->getId() === $zoneId) {
-                        if (null === $highest || $rate->getAmount() > $highest->getAmount()) {
-                            $highest = $rate;
+                    /** @var TaxRateInterface $rate */
+                    foreach ($rates as $rate) {
+                        $rateZone = $rate->getZone();
+                        if (null !== $rateZone) {
+                            if ($rateZone->getId() === $zoneId) {
+                                if (null === $highest || $rate->getAmount() > $highest->getAmount()) {
+                                    $highest = $rate;
+                                }
+                            }
+                        } else {
+                            $this->logger->debug('TaxRateResolver found tax rate without a zone!');
                         }
                     }
+                } else {
+                    $this->logger->debug('TaxRateResolver found a variant without a tax category!');
                 }
             } else {
                 $this->logger->debug(

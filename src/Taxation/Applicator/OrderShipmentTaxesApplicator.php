@@ -46,7 +46,7 @@ final class OrderShipmentTaxesApplicator implements OrderTaxesApplicatorInterfac
 
     private function getShippingMethod(OrderInterface $order): ShippingMethodInterface
     {
-        /** @var ShipmentInterface|bool $shipment */
+        /** @var ShipmentInterface|false $shipment */
         $shipment = $order->getShipments()->first();
         if (false === $shipment) {
             throw new \LogicException('Order should have at least one shipment.');
@@ -86,6 +86,6 @@ final class OrderShipmentTaxesApplicator implements OrderTaxesApplicatorInterfac
             return;
         }
 
-        $this->addAdjustment($order, (int) $taxAmount, $taxRate->getLabel(), $taxRate->isIncludedInPrice());
+        $this->addAdjustment($order, (int) $taxAmount, $taxRate->getLabel() ?? '', $taxRate->isIncludedInPrice());
     }
 }
