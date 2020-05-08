@@ -15,10 +15,18 @@ applied on the order items in the order.
 Doing so makes the application of taxes on the shipping costs comply with the laws of for example the Dutch "BTW" system
 and likely that of other countries within the European Union as well.
 
+##### Supported Sylius versions:
+<table>
+    <tr><td>1.6</td></tr>
+</table>
+
+
+> **_NOTE:_** *This plugin requires PHP 7.4 or up*
+
 #### Installation:
 1. Install using composer:
     ```bash
-    composer require sylius-highest-order-shipment-tax-rate-plugin
+    composer require nedac/sylius-highest-order-shipment-tax-rate-plugin
     ```
 2. Add to bundles.php:
     ```php
