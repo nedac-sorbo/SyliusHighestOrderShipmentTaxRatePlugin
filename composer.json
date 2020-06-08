@@ -38,6 +38,9 @@
         "nyholm/symfony-bundle-test": "^1.6",
         "webmozart/assert": "^1.8"
     },
+    "conflict": {
+        "doctrine/inflector": "^1.4.0"
+    },
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
