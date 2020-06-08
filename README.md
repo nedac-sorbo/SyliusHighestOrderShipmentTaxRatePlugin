@@ -15,13 +15,6 @@ applied on the order items in the order.
 Doing so makes the application of taxes on the shipping costs comply with the laws of for example the Dutch "BTW" system
 and likely that of other countries within the European Union as well.
 
-The new calculator can be selected and configured through the admin system by adding or editing a shipping method:
-
-![Shipping charges](shipping_charges.png)
-
-The "amount" is that of the shipping fee. For example, €25 for global shipping.
-When the total order value (excl. tax) goes over the "Free shipping threshold", the shipping becomes free of charge.
-
 ##### Supported Sylius versions:
 <table>
     <tr><td>1.6</td></tr>
