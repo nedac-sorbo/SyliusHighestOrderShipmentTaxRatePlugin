@@ -71,6 +71,8 @@ before_script:
 jobs:
     include:
         - name: Sylius 1.7
+          env:
+              - SYLIUS_VERSION="1.7"
         - name: Sylius 1.6
           env:
               - SYLIUS_VERSION="1.6"
@@ -82,7 +84,7 @@ script:
     - vendor/bin/phpspec run
     - rm -rf tests/Application/var/cache/*
     - vendor/bin/phpunit
-    - vendor/bin/behat --strict -vvv --no-interaction || vendor/bin/behat --strict -vvv --no-interaction --rerun
+    - vendor/bin/behat --strict -vvv --no-interaction --tags="@${SYLIUS_VERSION}" || vendor/bin/behat --strict -vvv --no-interaction --rerun --tags="@${SYLIUS_VERSION}"
 
 after_failure:
     - ls -lah ${SYLIUS_BUILD_DIR}

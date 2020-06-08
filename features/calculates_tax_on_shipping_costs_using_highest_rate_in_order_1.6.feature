@@ -1,4 +1,4 @@
-@highest_order_shipment_tax_rate @javascript
+@highest_order_shipment_tax_rate @javascript @1.6
 Feature:
   As a customer
   I need the highest tax rate in the order to be applied to the shipping costs
