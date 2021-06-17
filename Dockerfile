@@ -121,13 +121,7 @@ RUN set -eux; \
     composer install --prefer-dist --no-autoloader --no-scripts --no-progress; \
     composer require nedac/sylius-highest-order-shipment-tax-rate-plugin:"$PLUGIN_VERSION" --no-progress -vvv; \
     composer recipes:install nedac/sylius-highest-order-shipment-tax-rate-plugin --force -n; \
-    composer clear-cache; \
-    ls -l config/routes
-
-RUN set -eux; \
-    yq -y -i '.sylius_product.resources.product.classes["controller"] |= . + "Nedac\\SyliusOrderNowPlugin\\Controller\\ProductController"' config/packages/_sylius.yaml; \
-    yq -y -i '.sylius_product.resources.product_association.classes["controller"] |= . + "Nedac\\SyliusOrderNowPlugin\\Controller\\ProductAssociationController"' config/packages/_sylius.yaml; \
-    yq -y -i '.sylius_review.resources.product.review.classes["controller"] |= . + "Nedac\\SyliusOrderNowPlugin\\Controller\\ProductReviewController"' config/packages/_sylius.yaml
+    composer clear-cache
 
 VOLUME /srv/sylius/var
 
@@ -161,7 +155,6 @@ COPY --from=sylius_highest_order_shipment_tax_rate_plugin_php /srv/sylius/vendor
 COPY --from=sylius_highest_order_shipment_tax_rate_plugin_php /srv/sylius/vendor/sylius/sylius/src/Sylius/Bundle/ShopBundle/gulpfile.babel.js ./vendor/sylius/sylius/src/Sylius/Bundle/ShopBundle/gulpfile.babel.js
 COPY --from=sylius_highest_order_shipment_tax_rate_plugin_php /srv/sylius/vendor/sylius/sylius/src/Sylius/Bundle/ShopBundle/Resources/private vendor/sylius/sylius/src/Sylius/Bundle/ShopBundle/Resources/private/
 COPY --from=sylius_highest_order_shipment_tax_rate_plugin_php /srv/sylius/vendor/sylius/sylius/src/Sylius/Bundle/UiBundle/Resources/private vendor/sylius/sylius/src/Sylius/Bundle/UiBundle/Resources/private/
-COPY --from=sylius_highest_order_shipment_tax_rate_plugin_php /srv/sylius/vendor/nedac/sylius-highest-order-shipment-tax-rate-plugin/src/Resources/public vendor/nedac/sylius-highest-order-shipment-tax-rate-plugin/src/Resources/public/
 
 RUN sed -i 's/node: true,/node: true,\n    browser: true/g' .eslintrc.js
 
