@@ -42,6 +42,8 @@ jobs:
         run: docker-compose exec -T php sh -c "(cd vendor/nedac/sylius-highest-order-shipment-tax-rate-plugin && vendor/bin/phpcs)"
       - name: Static analysis
         run: docker-compose exec -T php sh -c "(cd vendor/nedac/sylius-highest-order-shipment-tax-rate-plugin && vendor/bin/phpstan analyse src/ tests/ --level max)"
+      - name: Spec tests
+        run: docker-compose exec -T php sh -c "(cd vendor/nedac/sylius-highest-order-shipment-tax-rate-plugin && vendor/bin/phpspec run)"
       - name: Unit tests
         run: docker-compose exec -T php sh -c "(cd vendor/nedac/sylius-highest-order-shipment-tax-rate-plugin && vendor/bin/phpunit --testdox)"
       - name: Install twigcs
