@@ -1,4 +1,5 @@
 parameters:
     reportUnmatchedIgnoredErrors: false
 
-#    ignoreErrors:
+    ignoreErrors:
+        - '/Method Nedac\\SyliusHighestOrderShipmentTaxRatePlugin\\DependencyInjection\\NedacSyliusHighestOrderShipmentTaxRateExtension::load\(\) has parameter \$config with no value type specified in iterable type array./'
