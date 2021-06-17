@@ -116,7 +116,7 @@ RUN set -eux; \
         cat composer.json; \
     fi
 
-ARG PLUGIN_VERSION=dev-master
+ARG PLUGIN_VERSION=^1.0@dev
 RUN set -eux; \
     composer install --prefer-dist --no-autoloader --no-scripts --no-progress; \
     composer require nedac/sylius-highest-order-shipment-tax-rate-plugin:"$PLUGIN_VERSION" --no-progress -vvv; \
