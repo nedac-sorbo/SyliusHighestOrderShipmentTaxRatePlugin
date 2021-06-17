@@ -54,7 +54,6 @@ final class OrderShipmentTaxesApplicator implements OrderTaxesApplicatorInterfac
 
         $method = $shipment->getMethod();
 
-        /** @var ShippingMethodInterface $method */
         Assert::isInstanceOf($method, ShippingMethodInterface::class);
 
         return $method;
