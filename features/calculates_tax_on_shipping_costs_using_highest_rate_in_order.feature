@@ -1,4 +1,4 @@
-@highest_order_shipment_tax_rate @javascript @1.6
+@highest_order_shipment_tax_rate @javascript
 Feature:
   As a customer
   I need the highest tax rate in the order to be applied to the shipping costs
@@ -27,7 +27,7 @@ Feature:
     And I have product "1L Vodka" in the cart
     And I am at the checkout addressing step
     And I specify the email as "customer@example.com"
-    And I specify the shipping address as "city", "street", "postcode", "United States" for "Mister Customer"
+    And I specify the billing address as "city", "street", "postcode", "United States" for "Mister Customer"
     And I complete the addressing step
     Then I should see a total taxes of "$2,102.23"
 
@@ -38,6 +38,6 @@ Feature:
     And I have product "1L Vodka" in the cart
     And I am at the checkout addressing step
     And I specify the email as "customer@example.com"
-    And I specify the shipping address as "city", "street", "postcode", "United States" for "Mister Customer"
+    And I specify the billing address as "city", "street", "postcode", "United States" for "Mister Customer"
     And I complete the addressing step
     Then I should see a total taxes of "$2,100.13"

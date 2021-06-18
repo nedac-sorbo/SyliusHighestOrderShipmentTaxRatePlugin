@@ -5,12 +5,19 @@ services:
     build:
       context: .
       target: sylius_highest_order_shipment_tax_rate_plugin_php
-    image: nedac/sylius_highest_order_shipment_tax_rate_plugin_php:latest
+      network: host
+      args:
+        - PRIVATE_FLEX=${PRIVATE_FLEX:-false}
+    image: ghcr.io/nedac-sorbo/sylius_highest_order_shipment_tax_rate_plugin_php:latest
     environment:
       - APP_ENV=test
       - DATABASE_URL=mysql://sylius:highest_order_shipment_tax_rate@127.0.0.1:3306/sylius_highest_order_shipment_tax_rate
     volumes:
-      - .:/srv/sylius
+      # TODO: Mount templates/folders
+      - .:/srv/sylius/vendor/nedac/sylius-highest-order-shipment-tax-rate-plugin
+      - ./etc/build:/srv/sylius/etc/build
+      - public:/srv/sylius/public:rw
+      - public-media:/srv/sylius/public/media:rw
     network_mode: host
 
   mysql:
@@ -20,37 +27,45 @@ services:
       - MYSQL_DATABASE=sylius_highest_order_shipment_tax_rate
       - MYSQL_USER=sylius
       - MYSQL_PASSWORD=highest_order_shipment_tax_rate
-    ports:
-      - "3306:3306"
     network_mode: host
 
   nginx:
     build:
       context: .
       target: sylius_highest_order_shipment_tax_rate_plugin_nginx
-    image: nedac/sylius_highest_order_shipment_tax_rate_plugin_nginx:latest
+      network: host
+      args:
+        - PRIVATE_FLEX=${PRIVATE_FLEX:-false}
+    image: ghcr.io/nedac-sorbo/sylius_highest_order_shipment_tax_rate_plugin_nginx:latest
     volumes:
-      - .:/srv/sylius
-    ports:
-      - "8080:8080"
+      - public:/srv/sylius/public:ro
+      - public-media:/srv/sylius/public/media:ro,nocopy
     network_mode: host
 
   nodejs:
     build:
       context: .
       target: sylius_highest_order_shipment_tax_rate_plugin_nodejs
-    image: nedac/sylius_highest_order_shipment_tax_rate_plugin_nodejs:latest
-    environment:
-      - GULP_ENV=dev
+      network: host
+      args:
+        - PRIVATE_FLEX=${PRIVATE_FLEX:-false}
+    image: ghcr.io/nedac-sorbo/sylius_highest_order_shipment_tax_rate_plugin_nodejs:latest
     volumes:
-      - .:/srv/sylius
+      - ./src/Resources/public:/srv/sylius/vendor/nedac/sylius-highest-order-shipment-tax-rate-plugin/src/Resources/public
     network_mode: host
 
   chrome:
-    image: selenium/standalone-chrome-debug:latest
+    build:
+      context: .
+      target: sylius_highest_order_shipment_tax_rate_plugin_chrome
+      network: host
+      args:
+        - PRIVATE_FLEX=${PRIVATE_FLEX:-false}
+    image: ghcr.io/nedac-sorbo/sylius_highest_order_shipment_tax_rate_plugin_chrome:latest
     volumes:
       - /dev/shm:/dev/shm
-      - ./tests/Resources/video:/video
-    ports:
-      - "5900:5900"
     network_mode: host
+
+volumes:
+  public:
+  public-media:
