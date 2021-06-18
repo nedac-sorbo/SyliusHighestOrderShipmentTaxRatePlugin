@@ -38,10 +38,6 @@ jobs:
         run: docker-compose exec -T php sh -c "(cd vendor/nedac/sylius-highest-order-shipment-tax-rate-plugin && vendor/bin/phpspec run)"
       - name: Unit tests
         run: docker-compose exec -T php sh -c "(cd vendor/nedac/sylius-highest-order-shipment-tax-rate-plugin && vendor/bin/phpunit --testdox)"
-      - name: Install twigcs
-        run: docker-compose exec -T php composer global require friendsoftwig/twigcs
-      - name: Template style
-        run: docker-compose exec -T php twigcs vendor/nedac/sylius-highest-order-shipment-tax-rate-plugin/src/Resources/views --severity error
       - name: Create database schema
         run: docker-compose exec -T php bin/console doctrine:schema:create
       - name: End to end tests
