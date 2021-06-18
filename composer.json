@@ -28,8 +28,7 @@
         "matthiasnoback/symfony-config-test": "^4.2",
         "phpstan/phpstan-phpunit": "^0.12.19",
         "phpstan/phpstan-mockery": "^0.12.14",
-        "phpspec/phpspec": "^7.0",
-        "nyholm/symfony-bundle-test": "^1.7"
+        "phpspec/phpspec": "^7.0"
     },
     "autoload": {
         "psr-4": {
