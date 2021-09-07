@@ -11,7 +11,7 @@ and likely that of other countries within the European Union as well.
 
 ##### Supported Sylius versions:
 <table>
-    <tr><td>1.9</td></tr>
+    <tr><td>1.10</td></tr>
 </table>
 
 
