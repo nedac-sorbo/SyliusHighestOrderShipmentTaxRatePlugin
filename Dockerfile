@@ -1,4 +1,4 @@
-ARG PHP_VERSION=7.4
+ARG PHP_VERSION=8.0
 ARG NODE_VERSION=13
 ARG NGINX_VERSION=1.21
 
@@ -76,7 +76,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 RUN set -eux; \
     wget -O phive.phar https://phar.io/releases/phive.phar; \
     wget -O phive.phar.asc https://phar.io/releases/phive.phar.asc; \
-    gpg --keyserver pool.sks-keyservers.net --recv-keys 0x9D8A98B29B2D5D79; \
+    gpg --keyserver hkps://keys.openpgp.org --recv-keys 0x9D8A98B29B2D5D79; \
     gpg --verify phive.phar.asc phive.phar; \
     chmod +x phive.phar; \
     mv phive.phar /usr/local/bin/phive
@@ -92,7 +92,7 @@ COPY docker/php-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
 WORKDIR /srv
-ARG SYLIUS_VERSION=1.9
+ARG SYLIUS_VERSION=1.10
 
 # TODO: Install using composer
 RUN git clone --depth 1 --single-branch --branch "$SYLIUS_VERSION" https://github.com/Sylius/Sylius-Standard.git sylius
@@ -116,7 +116,7 @@ RUN set -eux; \
         cat composer.json; \
     fi
 
-ARG PLUGIN_VERSION=^1.0@dev
+ARG PLUGIN_VERSION=1.1.x-dev
 RUN set -eux; \
     composer install --prefer-dist --no-autoloader --no-scripts --no-progress; \
     composer require nedac/sylius-highest-order-shipment-tax-rate-plugin:"$PLUGIN_VERSION" --no-progress -vvv; \
